@@ -1,3 +1,4 @@
+import React, {useState} from 'react'
 import CircularText from "../components/CircularText";
 import CardSwap, { Card } from "../components/CardSwap";
 import FloatingLines from "../components/FloatingLines";
@@ -9,6 +10,8 @@ import GradientText from "../components/GradientText";
 import { MdOutlineLightMode } from "react-icons/md";
 import { PiHandWavingFill } from "react-icons/pi";
 import LogoLoop from "../components/LogoLoop";
+import ProjectShowcase from "../components/ProjectShowcase";
+
 import {
   SiReact,
   SiNextdotjs,
@@ -33,6 +36,8 @@ const techLogos = [
 ];
 
 const Hero = () => {
+  const [isPaused, setIsPaused] = useState(false);
+
   return (
     <>
       <section className="relative h-screen w-full bg--black  px-16 py-6 overflow-hidden">
@@ -119,7 +124,7 @@ const Hero = () => {
           </div>
         </div>
         <img
-          className="absolute right-0 -bottom-2 w-[42%] z-0 opacity-7"
+          className="absolute right-0 -bottom-2 w-[42%] z-0 opacity-5"
           src="./images/LOGO.png"
         />
         <img
@@ -132,6 +137,8 @@ const Hero = () => {
         <div
           style={{ height: "600px" }}
           className="absolute bottom-35 right-30"
+          onMouseEnter={() => {setIsPaused(true)}}
+          onMouseLeave={() => {setIsPaused(false)}}
         >
           <CardSwap
             cardDistance={60}
@@ -141,6 +148,7 @@ const Hero = () => {
           >
             <Card>
               <div className=" flex flex-col justify-start gap-10 w-full h-95 rounded-xl overflow-hidden">
+                <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[100px] opacity-30"></div>
                 <img src="./images/autohire.png" className="w-auto" />
                 <div className="flex gap-10">
                   <div className="flex flex-col justify-center px-10 py-auto">
@@ -168,6 +176,7 @@ const Hero = () => {
             </Card>
             <Card>
               <div className=" flex flex-col justify-start gap-7 w-full h-95 rounded-xl overflow-hidden">
+                <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[100px] opacity-30"></div>
                 <img src="./images/corehr.png" className="w-auto" />
                 <div className="flex gap-10">
                   <div className="flex flex-col justify-center px-10 py-auto">
@@ -195,6 +204,7 @@ const Hero = () => {
             </Card>
             <Card>
               <div className=" flex flex-col justify-start gap-10 w-full h-95 rounded-xl overflow-hidden">
+                <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[100px] opacity-30"></div>
                 <img src="./images/parkbay.png" className="w-auto" />
                 <div className="flex gap-10">
                   <div className="flex flex-col justify-center px-10 py-auto">
@@ -223,19 +233,16 @@ const Hero = () => {
           </CardSwap>
         </div>
 
-        <h1 className="text-2xl font-bold flex justify-center gap-2 mt-15 py-4 border-b-1 border-[#ffffff5d] w-[15%]">
-          My
-          <span>
-            <GradientText
-              colors={["#40ffaa", "#40ffaa", "#40ffaa", "#4079ff", "#4079ff"]}
-              animationSpeed={80}
-              showBorder={false}
-              className="custom-class"
-            >
-              Projects
-            </GradientText>
-          </span>
-        </h1>
+        <div className="h-full flex flex-col items-start justify-start gap-10 mt-40">
+          <h1 className="text-xl font-normal flex justify-center gap-2 py-3 border-b-1 border-[#ffffff5d] w-[10%] opacity-80">
+            Recent
+            <span className="font-bold">Work</span>
+          </h1>
+
+          <div>
+            <ProjectShowcase paused={isPaused} />
+          </div>
+        </div>
       </section>
     </>
   );
