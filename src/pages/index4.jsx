@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import CardSwap, { Card } from "../components/CardSwap";
 import GradientText from "../components/GradientText";
@@ -36,9 +36,91 @@ const techLogos = [
   },
 ];
 
+const projects = [
+  {
+    name: "ParkBay",
+    subtitle: "Parking Management System",
+    color: "indigo-500",
+    image: "./images/parkbay.png",
+    description:
+      "ParkBay is an Smart Parking Management System using the MERN stack to make parking, membership, and payments simple and seamless for users and admins. This was our Second Year Second Semester academic project, where we combined design, backend logic, and user management into a full-featured solution.",
+    Stack: ["react", "express", "node", "mongo", "tailwind css"],
+    githubLink: "https://github.com/Amiz001/parking-management-system",
+    demoLink: "https://www.linkedin.com/in/amila-dev/",
+  },
+  {
+    name: "CoreHR",
+    subtitle: "Employee Management System",
+    color: "purple-500",
+    image: "./images/corehr.png",
+    description:
+      "CoreHR is a web-based employee management system designed to simplify and modernize the way organizations handle employee-related tasks and workflows.",
+    Stack: ["html", "css", "javascript", "java servlets", "mysql"],
+    githubLink: "https://github.com/Amiz001/Employee-Management-System",
+    demoLink: "https://www.linkedin.com/in/amila-dev/",
+  },
+  {
+    name: "AutoHire",
+    subtitle: "Vehicle Rental System",
+    color: "yellow-500",
+    image: "./images/autohire.png",
+    description:
+      "AutoHire is a web-based platform that allows users to search and rent vehicles easily while admins manage users and listings. I developed the homepage, vehicle search page, and admin user management.",
+    Stack: ["html", "css", "javascript", "php", "mysql"],
+    githubLink: "https://github.com/Amiz001/Vehicle-Rental-System",
+    demoLink: "https://www.linkedin.com/in/amila-dev/",
+  },
+];
+
 const Hero = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [active, setActive] = useState("hero");
+  const [index, setIndex] = useState(1);
+  const [animate, setAnimate] = useState(true);
+  const intervalRef = useRef(null);
+
+  const current = projects[index];
+
+  useEffect(() => {
+    if (isPaused) {
+      clearInterval(intervalRef.current);
+      return;
+    }
+
+    intervalRef.current = setInterval(() => {
+      setAnimate(false); // start fade out
+
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % projects.length); // next project
+        setAnimate(true); // fade in
+      }, 300);
+    }, 5000);
+
+    return () => clearInterval(intervalRef.current);
+  }, [isPaused]);
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "-50% 0px -50% 0px",
+        threshold: 0,
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="pb-20 md:pb-0 overflow-hidden">
@@ -48,60 +130,37 @@ const Hero = () => {
           <img src="/images/LOGO.png" alt="Logo" className="w-8" />
 
           <ul className="relative flex gap-8 text-sm text-gray-200 px-4">
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-gradient-to-br from-[#4079ff] to-[#40ffaa] rounded-full"></div>
-            <a
-              href="#hero"
-              onClick={() => {
-                setActive("hero");
-              }}
-            >
-              <li
-                className={
-                  active == "hero"
-                    ? "hover:text-white cursor-pointer font-bold"
-                    : "hover:text-white/80 cursor-pointer"
-                }
+            {active === "hero" && (
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-gradient-to-br from-[#4079ff] to-[#40ffaa] rounded-full"></div>
+            )}
+            {active === "projects" && (
+              <div className="absolute left-16 top-1/2 -translate-y-1/2 w-2 h-2 bg-gradient-to-br from-[#4079ff] to-[#40ffaa] rounded-full"></div>
+            )}
+            {active === "contact" && (
+              <div className="absolute left-38 top-1/2 -translate-y-1/2 w-2 h-2 bg-gradient-to-br from-[#4079ff] to-[#40ffaa] rounded-full"></div>
+            )}
+
+            {["hero", "projects", "contact"].map((section) => (
+              <a
+                key={section}
+                href={`#${section}`}
+                className={`capitalize cursor-pointer ${
+                  active === section
+                    ? "font-bold text-white/90"
+                    : "hover:text-white/80 text-white/70"
+                }`}
+                onClick={() => {
+                  setActive(section);
+                }}
               >
-                Home
-              </li>
-            </a>
-            <a
-              href="#projects"
-              onClick={() => {
-                setActive("projects");
-              }}
-            >
-              <li
-                className={
-                  active == "projects"
-                    ? "hover:text-white cursor-pointer font-bold"
-                    : "hover:text-white/80 cursor-pointer"
-                }
-              >
-                Projects
-              </li>
-            </a>
-            <a
-              href="#contact"
-              onClick={() => {
-                setActive("contact");
-              }}
-            >
-              <li
-                className={
-                  active == "contact"
-                    ? "hover:text-white cursor-pointer font-bold"
-                    : "hover:text-white/80 cursor-pointer"
-                }
-              >
-                Contact
-              </li>
-            </a>
+                {section}
+              </a>
+            ))}
           </ul>
         </div>
       </nav>
 
-      {/* Mobile Bottom Navigation */}
+      {/* Mobile Navigation */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-black via-black/95 to-black/80 border-t border-white/20 backdrop-blur-lg">
         <ul className="flex justify-around items-center py-4 px-4">
           <a
@@ -248,7 +307,7 @@ const Hero = () => {
         />
         <img
           className="hidden md:block absolute right-0 bottom-0 w-[35%] z-10 brightness-80"
-          src="./images/fiverr.png"
+          src="./images/profile.webp"
         />
       </section>
 
@@ -256,7 +315,7 @@ const Hero = () => {
         id="projects"
         className="relative w-screen min-h-screen bg-black px-4 sm:px-8 md:px-16 py-6 overflow-hidden"
       >
-        <div className="hidden sm:block absolute bottom-0 left-0 w-[60%] sm:w-[50%] md:w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[150px] sm:blur-[200px] opacity-80"></div>
+        <div className="hidden sm:block absolute bottom-0 left-0 w-[60%] sm:w-[50%] md:w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[150px] sm:blur-[200px] opacity-20"></div>
         <div className="hidden sm:block absolute top-0 right-0 w-[60%] sm:w-[50%] md:w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[150px] sm:blur-[200px] opacity-20" />
 
         {/* Desktop Card Swap */}
@@ -276,108 +335,48 @@ const Hero = () => {
             delay={5000}
             pauseOnHover={true}
           >
-            <Card>
-              <div className="flex flex-col justify-start gap-10 w-full h-95 rounded-xl overflow-hidden">
-                <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[100px] opacity-30"></div>
-                <img src="./images/autohire.png" className="w-auto" />
-                <div className="flex gap-10">
-                  <div className="flex flex-col justify-center px-10 py-auto">
-                    <h1 className="flex justify-start text-2xl font-bold">
-                      AutoHire
-                    </h1>
-                    <p className="text-md text-gray-200">
-                      Vehicle Rental System
-                    </p>
-                  </div>
-                  <div className="flex gap-5">
-                    <a
-                      href="https://github.com/Amiz001/Vehicle-Rental-System"
-                      className="flex justify-center items-center py-1 px-4 border-2 rounded-xl border-[#fff] bg-transparent hover:bg-white/10"
-                    >
-                      <button>
-                        <FaGithub size={20} />
-                      </button>
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/amila-dev/details/projects/"
-                      className="flex justify-center items-center py-1 px-4 border-2 rounded-xl bg-yellow-500 hover:bg-yellow-500/90"
-                    >
-                      <button>
-                        <FaExternalLinkAlt size={20} />
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </Card>
-            <Card>
-              <div className="flex flex-col justify-start gap-7 w-full h-95 rounded-xl overflow-hidden">
-                <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[100px] opacity-30"></div>
-                <img src="./images/corehr.png" className="w-auto" />
-                <div className="flex gap-10">
-                  <div className="flex flex-col justify-center px-10 py-auto">
-                    <h1 className="flex justify-start text-2xl font-bold">
-                      CoreHr
-                    </h1>
-                    <p className="text-md text-md text-gray-200">
-                      Employee Management System
-                    </p>
-                  </div>
-                  <div className="flex gap-3">
-                    <a
-                      href="https://github.com/Amiz001/Employee-Management-System"
-                      className="flex justify-center items-center px-3 border-2 rounded-xl bg-transparent border-[#fff] hover:bg-white/10"
-                    >
-                      <button>
-                        <FaGithub size={20} />
-                      </button>
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/amila-dev/details/projects/"
-                      className="flex justify-center items-center px-3 border-2 rounded-xl bg-purple-500 hover:bg-purple-500/90"
-                    >
-                      <button>
-                        <FaExternalLinkAlt size={20} />
-                      </button>
-                    </a>
+            {projects.map((project) => (
+              <Card>
+                <div className="flex flex-col justify-start gap-10 w-full h-95 rounded-xl overflow-hidden">
+                  <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[100px] opacity-30"></div>
+                  <img src={project.image} className="w-auto" />
+                  <div className="flex gap-10">
+                    <div className="flex flex-col justify-center px-10 py-auto">
+                      <h1 className="flex justify-start text-2xl font-bold">
+                        {project.name}
+                      </h1>
+                      <p className="text-md text-gray-200">
+                        {project.subtitle}
+                      </p>
+                    </div>
+                    <div className="flex gap-5">
+                      <a
+                        href={project.githubLink}
+                        className="flex justify-center items-center py-1 px-4 border-2 rounded-xl border-[#fff] bg-transparent hover:bg-white/10"
+                      >
+                        <button>
+                          <FaGithub size={20} />
+                        </button>
+                      </a>
+                      <a
+                        href={project.demoLink}
+                        className={`flex justify-center items-center py-1 px-4 border-2 rounded-xl ${
+                          "bg-" +
+                          project.color +
+                          " hover:bg-" +
+                          project.color +
+                          "/90"
+                        }`}
+                      >
+                        <button>
+                          <FaExternalLinkAlt size={20} />
+                        </button>
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Card>
-            <Card>
-              <div className="flex flex-col justify-start gap-10 w-full h-95 rounded-xl overflow-hidden">
-                <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[100px] opacity-30"></div>
-                <img src="./images/parkbay.png" className="w-auto" />
-                <div className="flex gap-10">
-                  <div className="flex flex-col justify-center px-10 py-auto">
-                    <h1 className="flex justify-start text-2xl font-bold">
-                      ParkBay
-                    </h1>
-                    <p className="text-md text-gray-200">
-                      Parking Management System
-                    </p>
-                  </div>
-                  <div className="flex gap-5">
-                    <a
-                      href="https://github.com/Amiz001/parking-management-system"
-                      className="flex justify-center items-center py-1 px-4 border-2 rounded-xl bg-transparent border-[#fff] hover:bg-white/10"
-                    >
-                      <button>
-                        <FaGithub size={20} />
-                      </button>
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/amila-dev/details/projects/"
-                      className="flex justify-center items-center py-1 px-4 border-2 rounded-xl bg-indigo-500 hover:bg-indigo-500/90"
-                    >
-                      <button>
-                        <FaExternalLinkAlt size={20} />
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </Card>
+              </Card>
+            ))}
           </CardSwap>
         </div>
 
@@ -388,103 +387,71 @@ const Hero = () => {
             <span className="font-bold">Work</span>
           </h1>
 
-          {/* AutoHire Card */}
-          <div className="relative flex flex-col justify-start w-full rounded-xl overflow-hidden bg-gradient-to-b from-[#4079ff30] to-[#40ffaa30] backdrop-blur-sm p-[1px]">
-            <div className="relative flex flex-col justify-start gap-4 w-full rounded-xl overflow-hidden bg-black/95 backdrop-blur-sm p-4">
-              <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[80px] opacity-20"></div>
-              <img src="./images/autohire.png" className="w-full rounded-lg" />
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-col">
-                  <h1 className="text-xl font-bold">AutoHire</h1>
-                  <p className="text-sm text-gray-300">Vehicle Rental System</p>
-                </div>
-                <div className="flex gap-3">
-                  <a
-                    href="https://github.com/Amiz001/Vehicle-Rental-System"
-                    className="flex justify-center items-center py-2 px-4 border-2 rounded-xl border-[#fff] bg-transparent hover:bg-white/10 flex-1"
-                  >
-                    <FaGithub size={18} />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/amila-dev/details/projects/"
-                    className="flex justify-center items-center py-2 px-4 border-2 rounded-xl bg-yellow-500 hover:bg-yellow-500/90 flex-1"
-                  >
-                    <FaExternalLinkAlt size={18} />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* CoreHr Card */}
-          <div className="relative flex flex-col justify-start w-full rounded-xl overflow-hidden bg-gradient-to-b from-[#4079ff30] to-[#40ffaa30] backdrop-blur-sm p-[1px]">
-            <div className="relative flex flex-col justify-start gap-4 w-full rounded-xl overflow-hidden bg-black/95 backdrop-blur-sm p-4">
-              <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[80px] opacity-20"></div>
-              <img src="./images/corehr.png" className="w-full rounded-lg" />
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-col">
-                  <h1 className="text-xl font-bold">CoreHr</h1>
-                  <p className="text-sm text-gray-300">
-                    Employee Management System
-                  </p>
-                </div>
-                <div className="flex gap-3">
-                  <a
-                    href="https://github.com/Amiz001/Employee-Management-System"
-                    className="flex justify-center items-center py-2 px-4 border-2 rounded-xl border-[#fff] bg-transparent hover:bg-white/10 flex-1"
-                  >
-                    <FaGithub size={18} />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/amila-dev/details/projects/"
-                    className="flex justify-center items-center py-2 px-4 border-2 rounded-xl bg-purple-500 hover:bg-purple-500/90 flex-1"
-                  >
-                    <FaExternalLinkAlt size={18} />
-                  </a>
+          {projects.map((project) => (
+            <div className="relative flex flex-col justify-start w-full rounded-xl overflow-hidden bg-gradient-to-b from-[#4079ff30] to-[#40ffaa30] backdrop-blur-sm p-[1px]">
+              <div className="relative flex flex-col justify-start gap-4 w-full rounded-xl overflow-hidden bg-black/95 backdrop-blur-sm p-4">
+                <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[80px] opacity-20"></div>
+                <img src={project.image} className="w-full rounded-lg" />
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-col">
+                    <h1 className="text-xl font-bold">{project.name}</h1>
+                    <p className="text-sm text-gray-300">{project.subtitle}</p>
+                  </div>
+                  <div className="flex gap-3">
+                    <a
+                      href={project.githubLink}
+                      className="flex justify-center items-center py-2 px-4 border-2 rounded-xl border-[#fff] bg-transparent hover:bg-white/10 flex-1"
+                    >
+                      <FaGithub size={18} />
+                    </a>
+                    <a
+                      href={project.demoLink}
+                      className={`flex justify-center items-center py-2 px-4 border-2 rounded-xl ${
+                        "bg-" +
+                        project.color +
+                        " hover:bg-" +
+                        project.color +
+                        "/90"
+                      } flex-1`}
+                    >
+                      <FaExternalLinkAlt size={18} />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* ParkBay Card */}
-          <div className="relative flex flex-col justify-start w-full rounded-xl overflow-hidden bg-gradient-to-b from-[#4079ff30] to-[#40ffaa30] backdrop-blur-sm p-[1px]">
-            <div className="relative flex flex-col justify-start gap-4 w-full rounded-xl overflow-hidden bg-black/95 backdrop-blur-sm p-4">
-              <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-gradient-to-tl from-[#4079ff] to-[#40ffaa] blur-[80px] opacity-20"></div>
-              <img src="./images/parkbay.png" className="w-full rounded-lg" />
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-col">
-                  <h1 className="text-xl font-bold">ParkBay</h1>
-                  <p className="text-sm text-gray-300">
-                    Parking Management System
-                  </p>
-                </div>
-                <div className="flex gap-3">
-                  <a
-                    href="https://github.com/Amiz001/parking-management-system"
-                    className="flex justify-center items-center py-2 px-4 border-2 rounded-xl border-[#fff] bg-transparent hover:bg-white/10 flex-1"
-                  >
-                    <FaGithub size={18} />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/amila-dev/details/projects/"
-                    className="flex justify-center items-center py-2 px-4 border-2 rounded-xl bg-indigo-500 hover:bg-indigo-500/90 flex-1"
-                  >
-                    <FaExternalLinkAlt size={18} />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
-        <div className="hidden h-full sm:flex sm:flex-col items-start justify-start gap-6 md:gap-10 mt-20 md:mt-40">
+        <div className="hidden h-full md:flex sm:flex-col items-start justify-start gap-6 md:gap-10 mt-20 md:mt-40">
           <h1 className="text-lg md:text-xl font-normal flex justify-center gap-2 py-3 border-b-1 border-[#ffffff5d] w-auto md:w-[10%] opacity-80">
             Recent
             <span className="font-bold">Work</span>
           </h1>
 
           <div className="w-full">
-            <ProjectShowcase paused={isPaused} />
+            <div className="w-full max-w-xl flex flex-col justify-center gap-3 text-left">
+              <h2
+                style={{ fontFamily: "Poppins" }}
+                className={`text-5xl font-bold transition-all duration-700 ${
+                  animate
+                    ? "opacity-100 blur-0 translate-y-0"
+                    : "opacity-0 blur-sm translate-y-3"
+                }`}
+              >
+                {current.name}
+              </h2>
+
+              <p
+                className={`mt-4 text-gray-300 transition-all duration-700 delay-150 ${
+                  animate
+                    ? "opacity-100 blur-0 translate-y-0"
+                    : "opacity-0 blur-sm translate-y-3"
+                }`}
+              >
+                {current.description}
+              </p>
+            </div>
           </div>
         </div>
       </section>
