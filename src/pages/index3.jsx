@@ -121,7 +121,7 @@ const Hero = () => {
     },
   ];
 
-  const volunteerExperiences = [
+  const _volunteerExperiences = [
     {
       organization: "Tech for Good Initiative",
       role: "Full Stack Developer",

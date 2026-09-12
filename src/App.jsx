@@ -1,25 +1,19 @@
-import { useState } from 'react'
-import { BrowserRouter as  Router, Routes, Route } from 'react-router-dom'
-import Main from './pages/index4'
-
-import Test from './pages/index'
-import Hero from './pages/index2'
-import Test2 from './pages/index3'
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Layout from "./components/layout/Layout";
+import Home from "./pages/Home";
+import Tools from "./pages/Tools";
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path='/' element={<Main />} />
-        
-        <Route path='/test' element={<Hero />} />
-        <Route path='/test1' element={<Test2 />} />
-        <Route path='/test2' element={<Test />} />
-
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/tools" element={<Tools />} />
+        </Routes>
+      </Layout>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

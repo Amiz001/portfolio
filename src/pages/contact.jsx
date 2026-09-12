@@ -58,21 +58,6 @@ const Contact = () => {
       );
   };
 
-  const contactInfo = [
-    {
-      icon: <FaPhone size={20} />,
-      label: "Phone",
-      value: "071 375 0843",
-      href: "tel:+94713750843",
-    },
-    {
-      icon: <FaEnvelope size={20} />,
-      label: "Email",
-      value: "lgmalshan@gmail.com",
-      href: "mailto:lgmalshan@gmail.com",
-    },
-  ];
-
   const socialLinks = [
     {
       icon: <FaGithub size={24} />,
