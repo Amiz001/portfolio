@@ -92,7 +92,7 @@ const projects = [
     name: "ParkBay",
     subtitle: "Parking Management System",
     color: "indigo-500",
-    image: "./images/parkbay.png",
+    image: "./images/parkbay.webp",
     description:
       "ParkBay is an Smart Parking Management System using the MERN stack to make parking, membership, and payments simple and seamless for users and admins. This was our Second Year Second Semester academic project, where we combined design, backend logic, and user management into a full-featured solution.",
     Stack: ["react", "express js", "node js", "mongo", "tailwind css"],
@@ -103,7 +103,7 @@ const projects = [
     name: "CoreHR",
     subtitle: "Employee Management System",
     color: "purple-500",
-    image: "./images/corehr.png",
+    image: "./images/corehr.webp",
     description:
       "CoreHR is a web-based employee management system designed to simplify and modernize the way organizations handle employee-related tasks and workflows.",
     Stack: ["html", "css", "javascript", "java servlets", "mysql"],
@@ -114,24 +114,24 @@ const projects = [
     name: "AutoHire",
     subtitle: "Vehicle Rental System",
     color: "yellow-500",
-    image: "./images/autohire.png",
+    image: "./images/autohire.webp",
     description:
       "AutoHire is a web-based platform that allows users to search and rent vehicles easily while admins manage users and listings. I developed the homepage, vehicle search page, and admin user management.",
     Stack: ["html", "css", "javascript", "php", "mysql"],
     githubLink: "https://github.com/Amiz001/Vehicle-Rental-System",
     demoLink: "https://www.linkedin.com/in/amila-dev/",
   },
-  /*{
+  {
     name: "Suva Saviya",
     subtitle: "AI Chatbot",
     color: "purple-500",
-    image: "./images/suvasaviya.jpg",
+    image: "./images/suvasaviya.webp",
     description:
       "Suva Saviya is a chatbot interface designed for a Bookmark 3.0 (UI/UX competition) organized by SLIIT AIESEC club. Focused on an intuitive and responsive UI, our team won 1st place for design excellence. Tech Stack: HTML, CSS, JavaScript",
     Stack: ["html", "css", "javascript", "figma"],
     githubLink: "https://github.com/Amiz001/Suwa-saviya-ai",
     demoLink: "https://suwa-saviya-ai.netlify.app",
-  },*/
+  },
 ];
 
 const Hero = () => {
@@ -249,7 +249,7 @@ const Hero = () => {
       {/* Desktop Navigation */}
       <nav className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-100 w-full justify-center">
         <div className="flex items-center gap-12 bg-gradient-to-br from-white/5 to-black border border-white/20 backdrop-blur-lg rounded-3xl px-6 py-4 overflow-hidden">
-          <img src="/images/LOGO.png" alt="Logo" className="w-8" />
+          <img src="/images/LOGO.webp" alt="Logo" className="w-8" />
 
           <ul className="relative flex gap-8 text-sm text-gray-200 px-4">
             {active === "home" && (
@@ -266,11 +266,10 @@ const Hero = () => {
               <a
                 key={section}
                 href={`#${section}`}
-                className={`capitalize cursor-pointer ${
-                  active === section
-                    ? "font-bold text-white/90"
-                    : "hover:text-white/80 text-white/70"
-                }`}
+                className={`capitalize cursor-pointer ${active === section
+                  ? "font-bold text-white/90"
+                  : "hover:text-white/80 text-white/70"
+                  }`}
                 onClick={() => {
                   setActive(section);
                 }}
@@ -295,9 +294,8 @@ const Hero = () => {
               className={active === "home" ? "text-white" : "text-gray-400"}
             />
             <span
-              className={`text-xs ${
-                active === "home" ? "text-white font-semibold" : "text-gray-400"
-              }`}
+              className={`text-xs ${active === "home" ? "text-white font-semibold" : "text-gray-400"
+                }`}
             >
               Home
             </span>
@@ -312,11 +310,10 @@ const Hero = () => {
               className={active === "projects" ? "text-white" : "text-gray-400"}
             />
             <span
-              className={`text-xs ${
-                active === "projects"
-                  ? "text-white font-semibold"
-                  : "text-gray-400"
-              }`}
+              className={`text-xs ${active === "projects"
+                ? "text-white font-semibold"
+                : "text-gray-400"
+                }`}
             >
               Projects
             </span>
@@ -331,11 +328,10 @@ const Hero = () => {
               className={active === "contact" ? "text-white" : "text-gray-400"}
             />
             <span
-              className={`text-xs ${
-                active === "contact"
-                  ? "text-white font-semibold"
-                  : "text-gray-400"
-              }`}
+              className={`text-xs ${active === "contact"
+                ? "text-white font-semibold"
+                : "text-gray-400"
+                }`}
             >
               Contact
             </span>
@@ -425,7 +421,7 @@ const Hero = () => {
         </div>
         <img
           className="absolute hidden sm:block right-0 -bottom-2 w-[60%] sm:w-[50%] md:w-[42%] z-0 opacity-5"
-          src="./images/LOGO.png"
+          src="./images/LOGO.webp"
         />
         <img
           className="hidden md:block absolute right-0 bottom-0 w-[35%] z-10 brightness-80"
@@ -452,7 +448,7 @@ const Hero = () => {
           }}
         >
           <CardSwap
-            cardDistance={60}
+            cardDistance={50}
             verticalDistance={70}
             delay={4000}
             pauseOnHover={true}
@@ -482,13 +478,12 @@ const Hero = () => {
                       </a>
                       <a
                         href={project.demoLink}
-                        className={`flex justify-center items-center py-1 px-4 border-2 rounded-xl ${
-                          "bg-" +
+                        className={`flex justify-center items-center py-1 px-4 border-2 rounded-xl ${"bg-" +
                           project.color +
                           " hover:bg-" +
                           project.color +
                           "/90"
-                        }`}
+                          }`}
                       >
                         <button>
                           <FaExternalLinkAlt size={20} />
@@ -528,13 +523,12 @@ const Hero = () => {
                     </a>
                     <a
                       href={project.demoLink}
-                      className={`flex justify-center items-center py-2 px-4 border-2 rounded-xl ${
-                        "bg-" +
+                      className={`flex justify-center items-center py-2 px-4 border-2 rounded-xl ${"bg-" +
                         project.color +
                         " hover:bg-" +
                         project.color +
                         "/90"
-                      } flex-1`}
+                        } flex-1`}
                     >
                       <FaExternalLinkAlt size={18} />
                     </a>
@@ -555,21 +549,19 @@ const Hero = () => {
             <div className="w-full max-w-xl flex flex-col justify-center gap-3 text-left">
               <h2
                 style={{ fontFamily: "Poppins" }}
-                className={`text-5xl font-bold transition-all duration-700 ${
-                  animate
-                    ? "opacity-100 blur-0 translate-y-0"
-                    : "opacity-0 blur-sm translate-y-3"
-                }`}
+                className={`text-5xl font-bold transition-all duration-700 ${animate
+                  ? "opacity-100 blur-0 translate-y-0"
+                  : "opacity-0 blur-sm translate-y-3"
+                  }`}
               >
                 {current.name}
               </h2>
 
               <p
-                className={`mt-4 text-gray-300 transition-all duration-700 delay-150 ${
-                  animate
-                    ? "opacity-100 blur-0 translate-y-0"
-                    : "opacity-0 blur-sm translate-y-3"
-                }`}
+                className={`mt-4 text-gray-300 transition-all duration-700 delay-150 ${animate
+                  ? "opacity-100 blur-0 translate-y-0"
+                  : "opacity-0 blur-sm translate-y-3"
+                  }`}
               >
                 {current.description}
               </p>
