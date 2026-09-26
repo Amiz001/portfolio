@@ -50,7 +50,7 @@ A modern, responsive developer portfolio built to showcase my projects, skills, 
 git clone https://github.com/Amiz001/your-portfolio-repo.git
 
 # Navigate into the project
-cd your-portfolio-repo
+cd portfolio
 
 # Install dependencies
 npm install
