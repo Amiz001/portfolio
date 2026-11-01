@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = "Amila (Amiz) — Software Developer & Creative Engineer",
-  description = "Portfolio of Amila Shan (Amiz) — Full-stack developer specializing in modern web architecture, kinetic interfaces, and performant web systems based in Colombo."
+  title = "Amila Malshan — Software Developer & Creative Engineer",
+  description = "Portfolio of Amila Malshan — Full-stack developer specializing in modern web architecture, kinetic interfaces, and performant web systems based in Colombo."
 } = Astro.props;
 ---
 
@@ -22,9 +22,11 @@ const {
     <meta name="theme-color" content="#04070d" />
 
     <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/icons/android-chrome-192x192.png" />
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
 
     <!-- Open Graph / Meta -->
     <meta property="og:type" content="website" />
@@ -56,15 +58,59 @@ const {
 
       gsap.registerPlugin(ScrollTrigger);
 
+      let lastPointerX = 0;
+      window.addEventListener(
+        'pointermove',
+        (e) => {
+          lastPointerX = e.clientX;
+        },
+        { passive: true }
+      );
+
+      const isNearScrollbar = (clientX?: number) => {
+        const x = typeof clientX === 'number' ? clientX : lastPointerX;
+        return x >= document.documentElement.clientWidth - 14;
+      };
+
       // Smooth inertia scrolling with Lenis
       const lenis = new Lenis({
-        duration: 1.1,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        lerp: 0.1,
         orientation: 'vertical',
         smoothWheel: true,
+        virtualScroll: ({ event }) => {
+          // If pointer is over the scrollbar track, yield to native browser scroll
+          if ('clientX' in event && isNearScrollbar((event as MouseEvent).clientX)) {
+            lenis.reset();
+            return false;
+          }
+          return true;
+        },
       });
 
       (window as any).lenis = lenis;
+
+      // Reset Lenis when user clicks or drags the scrollbar
+      window.addEventListener(
+        'pointerdown',
+        (e) => {
+          if (isNearScrollbar(e.clientX)) {
+            lenis.reset();
+          }
+        },
+        { passive: true }
+      );
+
+      // Keep ScrollTrigger and Lenis in sync during native scroll interactions
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (isNearScrollbar()) {
+            lenis.reset();
+            ScrollTrigger.update();
+          }
+        },
+        { passive: true }
+      );
 
       lenis.on('scroll', ScrollTrigger.update);
 

@@ -24,7 +24,7 @@ export interface Capability {
 export const siteMeta = {
   name: "Amila",
   handle: "Amiz",
-  fullName: "Amila Shan",
+  fullName: "Amila Malshan",
   role: "Software Developer & Full-Stack Engineer",
   headline: "Building scalable web platforms, robust backend systems, and thoughtful digital experiences.",
   bio: "Full-stack software developer focused on performant web architecture, intuitive interfaces, and scalable full-stack applications. Winner of 1st Place for Design Excellence at Bookmark 3.0 UI/UX Competition.",
