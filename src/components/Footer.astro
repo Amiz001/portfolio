@@ -1,0 +1,92 @@
+---
+import { siteMeta } from "../data/portfolio";
+---
+
+<footer
+  class="relative w-full bg-[#03060c] border-t border-white/10 pt-20 pb-12 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden"
+>
+  <div class="max-w-7xl mx-auto flex flex-col justify-between gap-16">
+    <!-- Top Row: Logo, Nav Links, Back To Top -->
+    <!-- <div
+      class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-12 border-b border-white/10"
+    >
+      <div class="flex items-center gap-3">
+        <div
+          class="w-9 h-9 rounded-lg bg-[#0a1220] border border-white/10 flex items-center justify-center"
+        >
+          <img
+            src="/images/LOGO.webp"
+            alt="Logo"
+            class="w-5 h-5 filter invert opacity-90"
+          />
+        </div>
+        <div class="flex flex-col">
+          <span class="text-sm font-bold text-white font-['Syne',sans-serif]"
+            >{siteMeta.name.toUpperCase()}</span
+          >
+          <span class="text-[11px] font-mono text-[#8e9fb5]"
+            >Software Developer</span
+          >
+        </div>
+      </div>
+
+      <!-- Quick Nav Links -->
+    <!-- <nav
+      class="flex flex-wrap items-center gap-8 text-xs font-mono text-[#8e9fb5]"
+    >
+      <a href="#hero" class="hover:text-white transition-colors">TOP</a>
+      <a href="#work" class="hover:text-white transition-colors">WORK</a>
+      <a href="#capabilities" class="hover:text-white transition-colors"
+        >CRAFT</a
+      >
+      <a href="#about" class="hover:text-white transition-colors">ABOUT</a>
+      <a href="#contact" class="hover:text-white transition-colors">CONTACT</a>
+    </nav> -->
+
+    <!-- Smooth Scroll Back To Top Button -->
+    <!-- <button
+      id="back-to-top-btn"
+      data-magnetic
+      class="inline-flex items-center gap-2 text-xs font-mono text-[#60a5fa] hover:text-white transition-colors cursor-pointer group"
+    >
+      <span>Back to top</span>
+      <span class="text-base transition-transform group-hover:-translate-y-1"
+        >↑</span
+      >
+    </button>
+  </div> -->
+
+    <!-- Massive Display Wordmark Watermark -->
+    <!-- <div class="w-full select-none pointer-events-none text-center">
+      <h2
+        class="text-[13vw] font-black leading-none font-['Syne',sans-serif] tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white/15 to-transparent"
+      >
+        AMILA SHAN
+      </h2>
+    </div> -->
+
+    <!-- Bottom Credits & Legal -->
+    <div
+      class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#8e9fb5] pt-4"
+    >
+      <p>
+        © {new Date().getFullYear()}
+        {siteMeta.fullName}. All rights reserved.
+      </p>
+      <p class="flex items-center gap-2">
+        <span>Architected with</span>
+        <span class="text-[#60a5fa]">Astro 5</span>
+        <span>&</span>
+        <span class="text-[#93c5fd]">Tailwind CSS</span>
+      </p>
+      <p>Colombo, LK • 6.9271° N, 79.8612° E</p>
+    </div>
+  </div>
+
+  <script>
+    const btn = document.getElementById("back-to-top-btn");
+    btn?.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</footer>

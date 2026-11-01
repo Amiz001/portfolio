@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import WorkShowcase from '../components/WorkShowcase.astro';
+import CraftAndAbout from '../components/CraftAndAbout.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout>
+  <Navbar />
+  <main class="relative z-10">
+    <Hero />
+    <WorkShowcase />
+    <CraftAndAbout />
+    <ContactSection />
+  </main>
+  <Footer />
+</BaseLayout>
+

@@ -1,0 +1,262 @@
+---
+import { siteMeta } from "../data/portfolio";
+
+const tickerItems = [
+  "FULL-STACK ARCHITECTURE",
+  "REACT & NEXT.JS",
+  "ASTRO STATIC PERFORMANCE",
+  "NODE.JS & EXPRESS",
+  "TYPESCRIPT",
+  "TAILWIND CSS V4",
+  "GSAP PARALLAX MOTION",
+  "MONGODB & MYSQL",
+  "AWARD-WINNING UI/UX",
+  "FIGMA DESIGN SYSTEMS",
+];
+---
+
+<section
+  id="hero"
+  class="relative min-h-screen w-full flex flex-col justify-between pt-28 sm:pt-36 md:pt-30 pb-12 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden"
+>
+  <!-- Radial ambient glow (Glacial & Sapphire) -->
+  <div
+    class="absolute top-1/4 right-1/4 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] rounded-full glow-ambient pointer-events-none -z-10 blur-[90px] opacity-70"
+  >
+  </div>
+  <div
+    class="absolute -top-10 -left-10 w-[300px] h-[300px] rounded-full bg-[#2563eb]/10 pointer-events-none -z-10 blur-[100px]"
+  >
+  </div>
+
+  <div
+    class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center flex-grow relative"
+  >
+    <!-- Giant Background Architectural Watermark (Anchored to hero grid, strictly clear of profile face and above marquee) -->
+    <!-- <div
+      class="absolute -bottom-6 sm:-bottom-8 right-0 pointer-events-none select-none -z-10 opacity-[0.035] text-right [mask-image:linear-gradient(to_bottom,black_60%,transparent_96%)]"
+    >
+      <span
+        class="text-[17vw] lg:text-[15vw] font-black leading-none font-['Syne',sans-serif] tracking-tighter text-white block select-none"
+      >
+        AMIZ
+      </span>
+    </div> -->
+    <!-- Left Column: Typography & CTAs (Spans 7 cols) -->
+    <div class="lg:col-span-7 flex flex-col items-start gap-6 sm:gap-8 z-10">
+      <!-- Editorial Intro Lead-in -->
+      <div class="flex items-center gap-3">
+        <span class="h-px w-8 bg-[#60a5fa]"></span>
+        <span
+          class="text-xs sm:text-sm font-mono tracking-widest text-white/90 uppercase"
+        >
+          Amila Lokugamage <span class="text-white/40 mx-1">—</span>
+          <span class="text-[#60a5fa]">Software Engineer</span>
+        </span>
+      </div>
+
+      <!-- Main Display Headline -->
+      <h1
+        class="text-4xl sm:text-6xl md:text-7xl xl:text-8xl font-black tracking-tight leading-[1.02] font-['Syne',sans-serif] text-white"
+      >
+        ENGINEERING
+        <span class="block text-gradient"> HIGH-SPEED </span>
+        <span class="block text-white/90"> DIGITAL CRAFT. </span>
+      </h1>
+
+      <!-- Bio / Mission statement -->
+      <p
+        class="text-base sm:text-lg md:text-xl text-[#8e9fb5] max-w-xl leading-relaxed font-normal"
+      >
+        I engineer full-stack web platforms and interactive applications.
+        Focused on rock-solid architecture, clean design systems, and thoughtful
+        end-user experiences.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center gap-4 pt-2">
+        <a
+          href="#work"
+          data-magnetic
+          class="inline-flex items-center gap-3 px-7 py-3.5 rounded-xl font-bold text-sm tracking-wide bg-gradient-to-r from-[#3b82f6] via-[#60a5fa] to-[#bae6fd] text-black hover:opacity-95 transition-all duration-300 shadow-[0_0_30px_rgba(96,165,250,0.25)] hover:shadow-[0_0_40px_rgba(96,165,250,0.45)] hover:scale-[1.02] active:scale-[0.98]"
+        >
+          <span>VIEW SELECTED WORK</span>
+          <svg
+            class="w-4 h-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path
+              d="M12 5v14M19 12l-7 7-7-7"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+
+        <a
+          href={siteMeta.socials.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-magnetic
+          class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm tracking-wide bg-[#0a1220] hover:bg-[#111e34] text-white border border-white/10 hover:border-[#60a5fa]/40 transition-all duration-300 group"
+        >
+          <svg
+            class="w-4 h-4 fill-current text-white/70 group-hover:text-[#60a5fa] transition-colors"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+            ></path>
+          </svg>
+          <span>GitHub / Amiz001</span>
+          <span
+            class="text-xs text-[#8e9fb5] font-mono group-hover:text-[#60a5fa]"
+            >↗</span
+          >
+        </a>
+      </div>
+
+      <!-- Quick Stats / Highlights -->
+      <div
+        class="grid grid-cols-3 divide-x divide-white/10 pt-6 sm:pt-8 border-t border-white/10 w-full max-w-lg"
+      >
+        <div class="pr-4 sm:pr-6">
+          <span
+            class="text-2xl sm:text-3xl font-extrabold text-white font-['Syne',sans-serif] block tracking-tight"
+          >
+            01<span class="text-[#60a5fa] text-base font-mono ml-0.5">st</span>
+          </span>
+          <span
+            class="text-[11px] sm:text-xs text-[#94a3b8] font-mono tracking-wider uppercase block mt-1 font-medium"
+          >
+            Design Award Win
+          </span>
+        </div>
+        <div class="px-4 sm:px-6">
+          <span
+            class="text-2xl sm:text-3xl font-extrabold text-white font-['Syne',sans-serif] block tracking-tight"
+          >
+            100<span class="text-[#93c5fd] text-base font-mono ml-0.5">%</span>
+          </span>
+          <span
+            class="text-[11px] sm:text-xs text-[#94a3b8] font-mono tracking-wider uppercase block mt-1 font-medium"
+          >
+            Lighthouse Speed
+          </span>
+        </div>
+        <div class="pl-4 sm:pl-6">
+          <span
+            class="text-2xl sm:text-3xl font-extrabold text-white font-['Syne',sans-serif] block tracking-tight"
+          >
+            05<span class="text-[#38bdf8] text-base font-mono ml-0.5">+</span>
+          </span>
+          <span
+            class="text-[11px] sm:text-xs text-[#94a3b8] font-mono tracking-wider uppercase block mt-1 font-medium"
+          >
+            Shipped Systems
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Profile Image Sitting Directly in BG (No Frames, No Boxes, Prominent & Elevated) -->
+    <div
+      class="lg:col-span-5 relative flex justify-center lg:justify-end items-center h-full min-h-[440px] sm:min-h-[520px] lg:min-h-[620px] lg:-mt-8 select-none z-10"
+    >
+      <!-- Direct Studio Rim-light Backlight (Sapphire & Glacial Ice) -->
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[420px] h-[320px] sm:h-[420px] rounded-full bg-gradient-to-tr from-[#2563eb]/25 via-[#60a5fa]/15 to-[#93c5fd]/10 blur-[75px] -z-10 pointer-events-none"
+      >
+      </div>
+
+      <!-- Clean High-Visibility Portrait -->
+      <div
+        class="relative w-full max-w-[440px] sm:max-w-[480px] lg:max-w-[530px] flex justify-center lg:justify-end items-center"
+      >
+        <img
+          id="hero-portrait"
+          src="/images/profile-transparent.png"
+          onerror="this.onerror=null; this.src='/images/profile-editorial.jpg';"
+          alt="Amila Malshan"
+          class="w-full h-auto max-h-[620px] object-contain object-bottom pointer-events-auto filter brightness-[1.08] contrast-[1.04] drop-shadow-[0_20px_50px_rgba(0,0,0,0.85)] [mask-image:linear-gradient(to_bottom,black_92%,transparent_100%)] transition-opacity duration-300"
+          loading="eager"
+        />
+
+        <!-- Clean Geographic Coordinate Readout -->
+        <div
+          class="absolute bottom-6 left-0 hidden sm:flex flex-col text-[11px] font-mono text-[#8e9fb5]/90 leading-tight bg-[#04070d]/60 backdrop-blur-sm px-2.5 py-1.5 rounded border border-white/5"
+        >
+          <span class="text-[#60a5fa]">6.9271° N, 79.8612° E</span>
+          <span class="text-white/60">Colombo, Sri Lanka</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Kinetic Marquee Ticker: Architectural Glass Ribbon -->
+  <div
+    class="w-[calc(100%+2rem)] sm:w-[calc(100%+4rem)] md:w-[calc(100%+6rem)] lg:w-[calc(100%+8rem)] -mx-4 sm:-mx-8 md:-mx-12 lg:-mx-16 mt-20 sm:mt-24 py-4 sm:py-4.5 border-y border-[#60a5fa]/15 bg-[#050b16]/85 backdrop-blur-md overflow-hidden shadow-[0_12px_32px_rgba(0,0,0,0.6)] [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] z-20"
+  >
+    <div
+      class="flex whitespace-nowrap gap-10 animate-marquee font-mono text-xs sm:text-[13px] text-[#cbd5e1] font-medium uppercase tracking-[0.22em]"
+    >
+      {
+        tickerItems.concat(tickerItems).map((item) => (
+          <span class="inline-flex items-center gap-10">
+            <span class="hover:text-white transition-colors duration-200">
+              {item}
+            </span>
+            <span class="text-[#60a5fa] text-[10px] opacity-80 select-none">
+              ◆
+            </span>
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    display: inline-flex;
+    width: max-content;
+    animation: marquee 35s linear infinite;
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Smooth subtle parallax on the portrait when scrolling (tight scrub to prevent lag)
+  const portrait = document.getElementById("hero-portrait");
+  if (portrait) {
+    gsap.to(portrait, {
+      y: 35,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+  }
+</script>
