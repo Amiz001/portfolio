@@ -38,6 +38,7 @@ export const siteMeta = {
   socials: {
     github: "https://github.com/Amiz001",
     linkedin: "https://www.linkedin.com/in/amila-dev/",
+    hackerrank: "https://www.hackerrank.com/profile/Amiz001",
     instagram: "https://www.instagram.com/amila_shan__/"
   },
   emailJs: {
