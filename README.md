@@ -1,61 +1,87 @@
-# Amiz Developer Portfolio
+# Amila Malshan — Developer Portfolio
 
-A modern, responsive developer portfolio built to showcase my projects, skills, and contact information with smooth animations and an interactive UI.
+A high-performance personal engineering portfolio built with Astro 5, Tailwind CSS v4, and GSAP. Designed with a glacial sapphire aesthetic, kinetic typography, smooth inertia scrolling, and custom interactive canvas effects.
 
-🔗 **Live Demo:** https://amiz-dev-portfolio.vercel.
+## Tech Stack
 
-</br>
+### Core
+- **Framework:** Astro 5 (Static Site Generation)
+- **Styling:** Tailwind CSS v4
+- **Language:** TypeScript
 
-## 🚀 Tech Stack
+### Motion & Interactions
+- **GSAP & ScrollTrigger:** Parallax case studies, magnetic pull elements, and scroll triggers
+- **Lenis:** Inertia smooth scrolling with native scrollbar collision handling
+- **HTML5 Canvas:** 120fps spring-interpolated comet light-wave cursor trail
 
-### Frontend
-- React.js
-- Tailwind CSS
-- GSAP (ScrollTrigger animations)
-- React Icons
+### Typography
+- **Headings & Display:** Syne
+- **Body & Content:** Plus Jakarta Sans
+- **Micro-typography & Badges:** Space Grotesk
 
-### Tools & Libraries
-- Vite
-- Git & GitHub
-- Figma (UI planning)
-- React bits
+## Key Features
 
-</br>
+- **Kinetic Hero Canvas:** Relit editorial portrait integration, floating geographic coordinates, and decoupled architectural background watermark.
+- **Architectural Marquee Ribbon:** Full-bleed ticker band with directional edge fade masks and geometric diamond delimiters.
+- **Parallax Project Showcase:** Multi-tier showcase featuring featured case study parallax cards and interactive hover-preview archive table.
+- **Elevated Contact Interface:** High-contrast form surfaces, live status response via EmailJS, and branded SVG pills for GitHub, LinkedIn, HackerRank, and Instagram.
+- **Dynamic Scrolled Navigation:** Atomic scroll-detection navbar with frosted glass blur (`backdrop-blur-md`) and seamless edge border transitions.
+- **Responsive & Accessible:** Fully responsive layout with mobile drawer navigation, reduced motion fallbacks, and zero layout shift.
 
-## ✨ Features
+## Getting Started
 
-- ⚡ Modern animated hero section  
-- 🎨 Gradient text and glassmorphism UI  
-- 🧠 GSAP scroll-based reveal animations  
-- 🔁 Auto-swapping project cards (desktop)  
-- 📱 Fully responsive (mobile + desktop navigation)  
-- 🧰 Tech stack logo loop  
-- 📂 Project showcase with GitHub & live links  
-- 📬 Contact section  
-- 🌙 Dark themed developer UI  
+### Prerequisites
+- Node.js (v18.14.1 or higher)
+- npm, pnpm, or yarn
 
-</br>
+### Installation
 
-## 📸 Screenshots
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Amiz001/portfolio.git
+   cd portfolio
+   ```
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/6dee7e22-41dc-4df0-8293-c0f6661d4726" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/376a8397-e984-4e3a-ab34-5c43a6f4701d" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/117db200-e2cf-4f44-83f1-5f7d3c4c6795" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e92bd1d9-1645-46e7-aa21-a787d0f3bdfb" />
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## 🛠️ Installation & Running Locally
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-```bash
-# Clone the repository
-git clone https://github.com/Amiz001/your-portfolio-repo.git
+4. Build for production:
+   ```bash
+   npm run build
+   ```
 
-# Navigate into the project
-cd portfolio
+5. Preview the production build locally:
+   ```bash
+   npm run preview
+   ```
 
-# Install dependencies
-npm install
+## Project Structure
 
-# Run the development server
-npm run dev
+```text
+├── public/
+│   ├── icons/          # Multi-resolution favicons and touch icons
+│   └── images/         # Optimized portfolio assets, logos, and portraits
+├── src/
+│   ├── components/     # Astro UI components (Hero, Navbar, Work, Contact, Footer)
+│   ├── data/           # Structured portfolio projects, capabilities, and metadata
+│   ├── layouts/        # BaseLayout with Lenis, GSAP, and Canvas Cursor Trail
+│   ├── pages/          # Entry pages (index.astro)
+│   └── styles/         # Global design tokens, typography, and utility classes
+├── astro.config.mjs    # Astro configuration
+└── package.json        # Dependencies and build scripts
+```
 
+## Contact & Profiles
 
+- **Email:** lgmalshan@gmail.com
+- **GitHub:** [Amiz001](https://github.com/Amiz001)
+- **LinkedIn:** [Amila Malshan](https://www.linkedin.com/in/amila-dev/)
+- **HackerRank:** [Amiz001](https://www.hackerrank.com/profile/Amiz001)
+- **Location:** Colombo, Sri Lanka
