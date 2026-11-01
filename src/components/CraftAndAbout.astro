@@ -1,0 +1,133 @@
+---
+import { capabilities, siteMeta } from '../data/portfolio';
+---
+
+<section id="capabilities" class="relative w-full py-24 sm:py-32 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden bg-[#070a07]">
+  <!-- Grid pattern & glow -->
+  <div class="absolute inset-0 architectural-grid opacity-20 pointer-events-none"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] glow-ambient blur-[140px] pointer-events-none -z-10"></div>
+
+  <div class="max-w-7xl mx-auto w-full relative z-10">
+    <!-- Capabilities Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 sm:pb-16 border-b border-white/10">
+      <div>
+        <span class="text-xs font-mono text-[#b8ff01] uppercase tracking-wider block mb-2">
+          02 / Capabilities
+        </span>
+        <h2 class="text-4xl sm:text-6xl md:text-7xl font-black font-['Syne',sans-serif] tracking-tight text-white">
+          CRAFT &
+          <span class="text-gradient">CAPABILITIES.</span>
+        </h2>
+      </div>
+
+      <p class="text-sm sm:text-base text-[#9aa196] max-w-md font-normal leading-relaxed">
+        Engineered with modern standards: component modularity, strict type safety, scalable database architecture, and accessible user experiences.
+      </p>
+    </div>
+
+    <!-- Capabilities Grid (3 Pillars) with Interactive Cursor Spotlight -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 pt-12 sm:pt-16">
+      {capabilities.map((cap) => (
+        <div class="spotlight-card group relative p-8 sm:p-10 rounded-2xl bg-[#0e140e]/90 border border-white/10 hover:border-[#b8ff01]/40 transition-colors duration-300 flex flex-col justify-between min-h-[340px] hover:shadow-[0_15px_40px_rgba(184,255,1,0.1)] overflow-hidden">
+          <!-- Spotlight radial sheen -->
+          <div class="spotlight-glow pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+
+          <div class="relative z-10">
+            <div class="flex items-center justify-between mb-8">
+              <span class="text-xs font-mono text-[#b8ff01] border border-[#b8ff01]/30 px-2.5 py-1 rounded bg-[#b8ff01]/5">
+                {cap.index}
+              </span>
+              <span class="text-[#9aa196] group-hover:text-white transition-colors text-xs font-mono">
+                Pillar {cap.index}
+              </span>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white mb-4 font-['Syne',sans-serif] group-hover:text-[#b8ff01] transition-colors">
+              {cap.title}
+            </h3>
+
+            <p class="text-sm text-[#9aa196] leading-relaxed mb-6 font-normal">
+              {cap.description}
+            </p>
+          </div>
+
+          <!-- Tech List -->
+          <div class="pt-6 border-t border-white/10 relative z-10">
+            <span class="text-[10px] font-mono text-white/40 uppercase tracking-widest block mb-2">
+              TOOLKIT & FRAMEWORKS
+            </span>
+            <div class="flex flex-wrap gap-1.5">
+              {cap.technologies.map((t) => (
+                <span class="text-xs font-mono text-[#f4f6f0]/85 bg-white/5 px-2 py-0.5 rounded">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- ABOUT SECTION (Philosophy & Story) -->
+    <div id="about" class="mt-32 sm:mt-44 pt-16 sm:pt-24 border-t border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <!-- Left: Big Editorial Statement -->
+      <div class="lg:col-span-6 flex flex-col gap-6">
+        <span class="text-xs font-mono text-[#b8ff01] uppercase tracking-wider block">
+          03 / Background
+        </span>
+        <h3 class="text-3xl sm:text-5xl font-black font-['Syne',sans-serif] tracking-tight text-white leading-tight">
+          BRIDGING TECHNICAL RIGOR WITH
+          <span class="text-gradient">AWARD-WINNING DESIGN.</span>
+        </h3>
+
+        <div class="flex items-center gap-4 text-xs font-mono text-[#9aa196] pt-2">
+          <span>Based in {siteMeta.location}</span>
+          <span>•</span>
+          <span class="text-[#b8ff01]">{siteMeta.utcOffset}</span>
+        </div>
+      </div>
+
+      <!-- Right: Narrative & Philosophy -->
+      <div class="lg:col-span-6 flex flex-col gap-6 text-base sm:text-lg text-[#9aa196] leading-relaxed font-normal">
+        <p>
+          I am a software developer with a focus on performance and usability. My experience spans from designing database schemas and REST APIs with Java and Node.js to crafting responsive, accessible interfaces with React, Astro, and Tailwind CSS.
+        </p>
+        <p>
+          In 2025, our team was awarded <span class="text-white font-semibold">1st Place for Design Excellence</span> in the Bookmark 3.0 UI/UX Competition for <span class="text-[#b8ff01] font-mono">Suva Saviya</span>, reinforcing my belief that great digital products require both backend resilience and thoughtful human interface design.
+        </p>
+        <p>
+          Whether architecting full-stack systems like <span class="text-white">ParkBay</span> or high-speed static deployments, I write clean, maintainable code engineered to scale reliably.
+        </p>
+
+        <div class="pt-6 border-t border-white/10 flex flex-wrap gap-8 font-mono text-xs text-white">
+          <div>
+            <span class="text-[#9aa196] block text-[10px]">CURRENT FOCUS</span>
+            <span class="text-[#b8ff01] font-bold">Astro, Next.js & Full-Stack Systems</span>
+          </div>
+          <div>
+            <span class="text-[#9aa196] block text-[10px]">STATUS</span>
+            <span>Available for Contract & Full-Time</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Mouse-tracked card spotlight effect
+  const cards = document.querySelectorAll('.spotlight-card');
+  cards.forEach((card) => {
+    const glow = card.querySelector('.spotlight-glow') as HTMLElement | null;
+    card.addEventListener('mousemove', (e: Event) => {
+      const mouseEvent = e as MouseEvent;
+      const rect = (card as HTMLElement).getBoundingClientRect();
+      const x = mouseEvent.clientX - rect.left;
+      const y = mouseEvent.clientY - rect.top;
+      if (glow) {
+        glow.style.background = `radial-gradient(350px circle at ${x}px ${y}px, rgba(184, 255, 1, 0.12), transparent 70%)`;
+      }
+    });
+  });
+</script>
+

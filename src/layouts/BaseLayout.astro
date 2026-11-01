@@ -1,0 +1,172 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Amila (Amiz) — Software Developer & Creative Engineer",
+  description = "Portfolio of Amila Shan (Amiz) — Full-stack developer specializing in modern web architecture, kinetic interfaces, and performant web systems based in Colombo."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#060806" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/android-chrome-192x192.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+    <!-- Open Graph / Meta -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/images/LOGO.webp" />
+
+    <!-- Google Fonts: Plus Jakarta Sans (ultra-clean Swiss geometry) + Syne (bold architectural display) + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-[#060806] text-[#f4f6f0] antialiased selection:bg-[#b8ff01] selection:text-black">
+    <div class="fixed inset-0 pointer-events-none z-50 bg-noise opacity-30"></div>
+    <div class="fixed inset-0 pointer-events-none z-0 architectural-grid opacity-25"></div>
+
+    <!-- Custom Precision Cursor & Follower (Desktop Only) -->
+    <div id="cursor-dot" class="custom-cursor-dot hidden md:block"></div>
+    <div id="cursor-ring" class="custom-cursor-ring hidden md:block">
+      <span id="cursor-text" class="text-[10px] font-mono font-black text-black opacity-0 uppercase tracking-wider transition-opacity duration-200">VIEW</span>
+    </div>
+
+    <slot />
+
+    <script>
+      import Lenis from 'lenis';
+      import gsap from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Smooth inertia scrolling with Lenis
+      const lenis = new Lenis({
+        duration: 1.1,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        smoothWheel: true,
+      });
+
+      (window as any).lenis = lenis;
+
+      lenis.on('scroll', ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+
+      // Prevent lag jumps on tab switch / throttle
+      gsap.ticker.lagSmoothing(500, 33);
+
+      // Smooth anchor scrolling
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', (e) => {
+          const href = anchor.getAttribute('href');
+          if (href && href.startsWith('#') && href.length > 1) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              lenis.scrollTo(target as HTMLElement, { offset: -30 });
+            }
+          }
+        });
+      });
+
+      // Back to top hook
+      const backToTopBtn = document.getElementById('back-to-top-btn');
+      backToTopBtn?.addEventListener('click', () => {
+        lenis.scrollTo(0);
+      });
+
+      // Custom Precision Cursor Tracker
+      const dot = document.getElementById('cursor-dot');
+      const ring = document.getElementById('cursor-ring');
+      const cursorText = document.getElementById('cursor-text');
+
+      if (dot && ring) {
+        // High-performance quickTo setters
+        const setDotX = gsap.quickTo(dot, 'x', { duration: 0.08, ease: 'power2.out' });
+        const setDotY = gsap.quickTo(dot, 'y', { duration: 0.08, ease: 'power2.out' });
+        const setRingX = gsap.quickTo(ring, 'x', { duration: 0.22, ease: 'power2.out' });
+        const setRingY = gsap.quickTo(ring, 'y', { duration: 0.22, ease: 'power2.out' });
+
+        window.addEventListener('mousemove', (e) => {
+          setDotX(e.clientX);
+          setDotY(e.clientY);
+          setRingX(e.clientX);
+          setRingY(e.clientY);
+        });
+
+        // Hover expansions on links and buttons
+        const hoverTargets = document.querySelectorAll('a, button, [data-cursor], [data-magnetic]');
+        hoverTargets.forEach((el) => {
+          el.addEventListener('mouseenter', () => {
+            const cursorType = el.getAttribute('data-cursor');
+            if (cursorType === 'view') {
+              ring.classList.add('cursor-view');
+              dot.style.opacity = '0';
+              if (cursorText) cursorText.style.opacity = '1';
+            } else {
+              ring.classList.add('cursor-hover');
+              dot.style.transform = 'scale(0.5)';
+            }
+          });
+
+          el.addEventListener('mouseleave', () => {
+            ring.classList.remove('cursor-view', 'cursor-hover');
+            dot.style.opacity = '1';
+            dot.style.transform = '';
+            if (cursorText) cursorText.style.opacity = '0';
+          });
+        });
+      }
+
+      // Magnetic Pull Physics on Primary Action Targets
+      const magneticElements = document.querySelectorAll('[data-magnetic]');
+      magneticElements.forEach((elem) => {
+        const el = elem as HTMLElement;
+        el.addEventListener('mousemove', (e) => {
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          gsap.to(el, {
+            x: x * 0.25,
+            y: y * 0.25,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        });
+
+        el.addEventListener('mouseleave', () => {
+          gsap.to(el, {
+            x: 0,
+            y: 0,
+            duration: 0.7,
+            ease: 'elastic.out(1, 0.4)',
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
+
