@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = "Amila (Amiz) — Software Developer & Creative Engineer",
-  description = "Portfolio of Amila Shan (Amiz) — Full-stack developer specializing in modern web architecture, kinetic interfaces, and performant web systems based in Colombo."
+  title = "Amila Malshan — Software Developer & Creative Engineer",
+  description = "Portfolio of Amila Malshan — Full-stack developer specializing in modern web architecture, kinetic interfaces, and performant web systems based in Colombo."
 } = Astro.props;
 ---
 
@@ -19,12 +19,14 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#060806" />
+    <meta name="theme-color" content="#04070d" />
 
     <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/icons/android-chrome-192x192.png" />
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
 
     <!-- Open Graph / Meta -->
     <meta property="og:type" content="website" />
@@ -32,23 +34,20 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:image" content="/images/LOGO.webp" />
 
-    <!-- Google Fonts: Plus Jakarta Sans (ultra-clean Swiss geometry) + Syne (bold architectural display) + JetBrains Mono -->
+    <!-- Google Fonts: Plus Jakarta Sans + Space Grotesk + Syne -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="bg-[#060806] text-[#f4f6f0] antialiased selection:bg-[#b8ff01] selection:text-black">
+  <body class="bg-[#04070d] text-[#f4f8ff] antialiased selection:bg-[#60a5fa] selection:text-black">
     <div class="fixed inset-0 pointer-events-none z-50 bg-noise opacity-30"></div>
     <div class="fixed inset-0 pointer-events-none z-0 architectural-grid opacity-25"></div>
 
-    <!-- Custom Precision Cursor & Follower (Desktop Only) -->
-    <div id="cursor-dot" class="custom-cursor-dot hidden md:block"></div>
-    <div id="cursor-ring" class="custom-cursor-ring hidden md:block">
-      <span id="cursor-text" class="text-[10px] font-mono font-black text-black opacity-0 uppercase tracking-wider transition-opacity duration-200">VIEW</span>
-    </div>
+    <!-- Fluid Light-Wave Cursor Canvas (Desktop Only) -->
+    <canvas id="cursor-light-trail" class="fixed inset-0 pointer-events-none z-50 hidden md:block"></canvas>
 
     <slot />
 
@@ -59,15 +58,59 @@ const {
 
       gsap.registerPlugin(ScrollTrigger);
 
+      let lastPointerX = 0;
+      window.addEventListener(
+        'pointermove',
+        (e) => {
+          lastPointerX = e.clientX;
+        },
+        { passive: true }
+      );
+
+      const isNearScrollbar = (clientX?: number) => {
+        const x = typeof clientX === 'number' ? clientX : lastPointerX;
+        return x >= document.documentElement.clientWidth - 14;
+      };
+
       // Smooth inertia scrolling with Lenis
       const lenis = new Lenis({
-        duration: 1.1,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        lerp: 0.1,
         orientation: 'vertical',
         smoothWheel: true,
+        virtualScroll: ({ event }) => {
+          // If pointer is over the scrollbar track, yield to native browser scroll
+          if ('clientX' in event && isNearScrollbar((event as MouseEvent).clientX)) {
+            lenis.reset();
+            return false;
+          }
+          return true;
+        },
       });
 
       (window as any).lenis = lenis;
+
+      // Reset Lenis when user clicks or drags the scrollbar
+      window.addEventListener(
+        'pointerdown',
+        (e) => {
+          if (isNearScrollbar(e.clientX)) {
+            lenis.reset();
+          }
+        },
+        { passive: true }
+      );
+
+      // Keep ScrollTrigger and Lenis in sync during native scroll interactions
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (isNearScrollbar()) {
+            lenis.reset();
+            ScrollTrigger.update();
+          }
+        },
+        { passive: true }
+      );
 
       lenis.on('scroll', ScrollTrigger.update);
 
@@ -98,49 +141,6 @@ const {
         lenis.scrollTo(0);
       });
 
-      // Custom Precision Cursor Tracker
-      const dot = document.getElementById('cursor-dot');
-      const ring = document.getElementById('cursor-ring');
-      const cursorText = document.getElementById('cursor-text');
-
-      if (dot && ring) {
-        // High-performance quickTo setters
-        const setDotX = gsap.quickTo(dot, 'x', { duration: 0.08, ease: 'power2.out' });
-        const setDotY = gsap.quickTo(dot, 'y', { duration: 0.08, ease: 'power2.out' });
-        const setRingX = gsap.quickTo(ring, 'x', { duration: 0.22, ease: 'power2.out' });
-        const setRingY = gsap.quickTo(ring, 'y', { duration: 0.22, ease: 'power2.out' });
-
-        window.addEventListener('mousemove', (e) => {
-          setDotX(e.clientX);
-          setDotY(e.clientY);
-          setRingX(e.clientX);
-          setRingY(e.clientY);
-        });
-
-        // Hover expansions on links and buttons
-        const hoverTargets = document.querySelectorAll('a, button, [data-cursor], [data-magnetic]');
-        hoverTargets.forEach((el) => {
-          el.addEventListener('mouseenter', () => {
-            const cursorType = el.getAttribute('data-cursor');
-            if (cursorType === 'view') {
-              ring.classList.add('cursor-view');
-              dot.style.opacity = '0';
-              if (cursorText) cursorText.style.opacity = '1';
-            } else {
-              ring.classList.add('cursor-hover');
-              dot.style.transform = 'scale(0.5)';
-            }
-          });
-
-          el.addEventListener('mouseleave', () => {
-            ring.classList.remove('cursor-view', 'cursor-hover');
-            dot.style.opacity = '1';
-            dot.style.transform = '';
-            if (cursorText) cursorText.style.opacity = '0';
-          });
-        });
-      }
-
       // Magnetic Pull Physics on Primary Action Targets
       const magneticElements = document.querySelectorAll('[data-magnetic]');
       magneticElements.forEach((elem) => {
@@ -166,6 +166,123 @@ const {
           });
         });
       });
+
+      // Fluid Light-Wave / Comet Trail Engine
+      const canvas = document.getElementById('cursor-light-trail') as HTMLCanvasElement | null;
+      if (canvas && window.matchMedia('(pointer: fine)').matches) {
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          let width = (canvas.width = window.innerWidth);
+          let height = (canvas.height = window.innerHeight);
+
+          window.addEventListener('resize', () => {
+            if (!canvas) return;
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+          });
+
+          const TRAIL_LENGTH = 22;
+          const trail: { x: number; y: number; vx: number; vy: number }[] = [];
+          let mouse = { x: -100, y: -100, active: false };
+          let prevMouse = { x: -100, y: -100 };
+          let velocity = 0;
+
+          for (let i = 0; i < TRAIL_LENGTH; i++) {
+            trail.push({ x: -100, y: -100, vx: 0, vy: 0 });
+          }
+
+          window.addEventListener('mousemove', (e) => {
+            if (!mouse.active) {
+              mouse.active = true;
+              for (let i = 0; i < TRAIL_LENGTH; i++) {
+                trail[i].x = e.clientX;
+                trail[i].y = e.clientY;
+              }
+            }
+            prevMouse.x = mouse.x;
+            prevMouse.y = mouse.y;
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+
+            const dx = mouse.x - prevMouse.x;
+            const dy = mouse.y - prevMouse.y;
+            velocity = Math.min(Math.sqrt(dx * dx + dy * dy), 40);
+          });
+
+          window.addEventListener('mouseleave', () => {
+            mouse.active = false;
+          });
+
+          const render = () => {
+            ctx.clearRect(0, 0, width, height);
+
+            if (mouse.active && trail[0].x > -50) {
+              // Smooth spring follow for trail nodes
+              trail[0].x += (mouse.x - trail[0].x) * 0.75;
+              trail[0].y += (mouse.y - trail[0].y) * 0.75;
+
+              for (let i = 1; i < TRAIL_LENGTH; i++) {
+                const prev = trail[i - 1];
+                const current = trail[i];
+                // Smooth easing with slight tension
+                current.x += (prev.x - current.x) * 0.48;
+                current.y += (prev.y - current.y) * 0.48;
+              }
+
+              // Draw Glowing Light-Wave Ribbon
+              ctx.save();
+              ctx.lineCap = 'round';
+              ctx.lineJoin = 'round';
+
+              for (let i = 0; i < TRAIL_LENGTH - 1; i++) {
+                const ratio = 1 - i / TRAIL_LENGTH; // 1 at head, 0 at tail
+                const p1 = trail[i];
+                const p2 = trail[i + 1];
+
+                const midX = (p1.x + p2.x) / 2;
+                const midY = (p1.y + p2.y) / 2;
+
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
+
+                // Luminous Glacial Sapphire Gradient
+                const alpha = Math.max(0, ratio * 0.85);
+                const width = Math.max(1, ratio * (velocity > 5 ? 7.5 : 4.5));
+
+                ctx.lineWidth = width;
+                ctx.strokeStyle = `rgba(96, 165, 250, ${alpha})`;
+                ctx.shadowBlur = ratio > 0.4 ? 14 : 6;
+                ctx.shadowColor = 'rgba(96, 165, 250, 0.9)';
+                ctx.stroke();
+
+                // Bright Core Sparkle at the head
+                if (i < 3) {
+                  ctx.lineWidth = width * 0.4;
+                  ctx.strokeStyle = `rgba(240, 249, 255, ${ratio * 0.95})`;
+                  ctx.shadowBlur = 18;
+                  ctx.shadowColor = 'rgba(255, 255, 255, 1)';
+                  ctx.stroke();
+                }
+              }
+
+              // Head Star Halo
+              ctx.beginPath();
+              ctx.arc(trail[0].x, trail[0].y, 2.2, 0, Math.PI * 2);
+              ctx.fillStyle = '#ffffff';
+              ctx.shadowBlur = 12;
+              ctx.shadowColor = '#93c5fd';
+              ctx.fill();
+
+              ctx.restore();
+            }
+
+            requestAnimationFrame(render);
+          };
+
+          render();
+        }
+      }
     </script>
   </body>
 </html>
