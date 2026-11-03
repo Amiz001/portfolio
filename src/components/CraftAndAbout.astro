@@ -2,21 +2,21 @@
 import { capabilities, siteMeta } from '../data/portfolio';
 ---
 
-<section id="capabilities" class="relative w-full py-24 sm:py-32 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden bg-[#060b14]">
+<section id="capabilities" class="relative w-full py-16 sm:py-24 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden bg-[#060b14]">
   <!-- Grid pattern & glow -->
   <div class="absolute inset-0 architectural-grid opacity-20 pointer-events-none"></div>
   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] glow-ambient blur-[140px] pointer-events-none -z-10"></div>
 
   <div class="max-w-7xl mx-auto w-full relative z-10">
     <!-- Capabilities Header -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 sm:pb-16 border-b border-white/10">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 sm:pb-14 border-b border-white/10">
       <div>
         <span class="text-xs font-mono text-[#60a5fa] uppercase tracking-wider block mb-2">
           02 / Capabilities
         </span>
-        <h2 class="text-4xl sm:text-6xl md:text-7xl font-black font-['Syne',sans-serif] tracking-tight text-white">
+        <h2 class="text-[clamp(1.5rem,6.4vw,4.5rem)] font-black font-['Syne',sans-serif] tracking-tight text-white leading-[1.05] break-words">
           CRAFT &
-          <span class="text-gradient">CAPABILITIES.</span>
+          <span class="text-gradient block sm:inline tracking-[-0.03em] sm:tracking-tight">CAPABILITIES.</span>
         </h2>
       </div>
 
@@ -26,14 +26,14 @@ import { capabilities, siteMeta } from '../data/portfolio';
     </div>
 
     <!-- Capabilities Grid (3 Pillars) with Interactive Cursor Spotlight -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 pt-12 sm:pt-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 pt-10 sm:pt-14">
       {capabilities.map((cap) => (
-        <div class="spotlight-card group relative p-8 sm:p-10 rounded-2xl bg-[#0a1220]/90 border border-white/10 hover:border-[#60a5fa]/40 transition-colors duration-300 flex flex-col justify-between min-h-[340px] hover:shadow-[0_15px_40px_rgba(96,165,250,0.12)] overflow-hidden">
+        <div class="spotlight-card group relative p-6 sm:p-8 lg:p-10 rounded-2xl bg-[#0a1220]/90 border border-white/10 hover:border-[#60a5fa]/40 transition-colors duration-300 flex flex-col justify-between min-h-[320px] hover:shadow-[0_15px_40px_rgba(96,165,250,0.12)] overflow-hidden">
           <!-- Spotlight radial sheen -->
           <div class="spotlight-glow pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
 
           <div class="relative z-10">
-            <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center justify-between mb-6 sm:mb-8">
               <span class="text-xs font-mono text-[#60a5fa] border border-[#60a5fa]/30 px-2.5 py-1 rounded bg-[#60a5fa]/5">
                 {cap.index}
               </span>
@@ -42,7 +42,7 @@ import { capabilities, siteMeta } from '../data/portfolio';
               </span>
             </div>
 
-            <h3 class="text-2xl font-bold text-white mb-4 font-['Syne',sans-serif] group-hover:text-[#60a5fa] transition-colors">
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 font-['Syne',sans-serif] group-hover:text-[#60a5fa] transition-colors break-words">
               {cap.title}
             </h3>
 
@@ -52,7 +52,7 @@ import { capabilities, siteMeta } from '../data/portfolio';
           </div>
 
           <!-- Tech List -->
-          <div class="pt-6 border-t border-white/10 relative z-10">
+          <div class="pt-5 sm:pt-6 border-t border-white/10 relative z-10">
             <span class="text-[10px] font-mono text-white/40 uppercase tracking-widest block mb-2">
               TOOLKIT & FRAMEWORKS
             </span>
@@ -69,18 +69,18 @@ import { capabilities, siteMeta } from '../data/portfolio';
     </div>
 
     <!-- ABOUT SECTION (Philosophy & Story) -->
-    <div id="about" class="mt-32 sm:mt-44 pt-16 sm:pt-24 border-t border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+    <div id="about" class="mt-20 sm:mt-28 pt-12 sm:pt-16 border-t border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
       <!-- Left: Big Editorial Statement -->
-      <div class="lg:col-span-6 flex flex-col gap-6">
+      <div class="lg:col-span-6 flex flex-col gap-5 sm:gap-6">
         <span class="text-xs font-mono text-[#60a5fa] uppercase tracking-wider block">
           03 / Background
         </span>
-        <h3 class="text-3xl sm:text-5xl font-black font-['Syne',sans-serif] tracking-tight text-white leading-tight">
+        <h3 class="text-[clamp(1.4rem,5.2vw,3rem)] font-black font-['Syne',sans-serif] tracking-tight text-white leading-tight break-words">
           BRIDGING TECHNICAL RIGOR WITH
           <span class="text-gradient">AWARD-WINNING DESIGN.</span>
         </h3>
 
-        <div class="flex items-center gap-4 text-xs font-mono text-[#8e9fb5] pt-2">
+        <div class="flex items-center gap-4 text-xs font-mono text-[#8e9fb5] pt-1">
           <span>Based in {siteMeta.location}</span>
           <span>•</span>
           <span class="text-[#60a5fa]">{siteMeta.utcOffset}</span>
@@ -88,7 +88,7 @@ import { capabilities, siteMeta } from '../data/portfolio';
       </div>
 
       <!-- Right: Narrative & Philosophy -->
-      <div class="lg:col-span-6 flex flex-col gap-6 text-base sm:text-lg text-[#8e9fb5] leading-relaxed font-normal">
+      <div class="lg:col-span-6 flex flex-col gap-5 sm:gap-6 text-base sm:text-lg text-[#8e9fb5] leading-relaxed font-normal">
         <p>
           I am a software developer with a focus on performance and usability. My experience spans from designing database schemas and REST APIs with Java and Node.js to crafting responsive, accessible interfaces with React, Astro, and Tailwind CSS.
         </p>
@@ -99,7 +99,7 @@ import { capabilities, siteMeta } from '../data/portfolio';
           Whether architecting full-stack systems like <span class="text-white">ParkBay</span> or high-speed static deployments, I write clean, maintainable code engineered to scale reliably.
         </p>
 
-        <div class="pt-6 border-t border-white/10 flex flex-wrap gap-8 font-mono text-xs text-white">
+        <div class="pt-5 sm:pt-6 border-t border-white/10 flex flex-wrap gap-6 sm:gap-8 font-mono text-xs text-white">
           <div>
             <span class="text-[#8e9fb5] block text-[10px]">CURRENT FOCUS</span>
             <span class="text-[#60a5fa] font-bold">Astro, Next.js & Full-Stack Systems</span>
@@ -130,4 +130,3 @@ import { capabilities, siteMeta } from '../data/portfolio';
     });
   });
 </script>
-
